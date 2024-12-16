@@ -1,0 +1,143 @@
+diff -crB a/maszyna/CMakeLists.txt b/maszyna/CMakeLists.txt
+*** a/maszyna/CMakeLists.txt	2024-12-16 01:58:05.616265100 +0100
+--- b/maszyna/CMakeLists.txt	2024-12-16 01:55:56.059622400 +0100
+***************
+*** 307,343 ****
+  	add_definitions(-DGLFW_DLL)
+  
+  	set(SOURCES ${SOURCES} "windows.cpp" "Console.cpp" "Console/LPT.cpp" "Console/PoKeys55.cpp")
+! 	set(GLFW3_INCLUDE_DIR ${GLFW3_INCLUDE_DIR} "${DEPS_DIR}/glfw/include/")
+! 	set(PNG_INCLUDE_DIRS ${PNG_INCLUDE_DIRS} "${DEPS_DIR}/libpng/include/")
+! 	set(ZLIB_INCLUDE_DIR ${ZLIB_INCLUDE_DIR} "${DEPS_DIR}/zlib/")
+! 	set(OPENAL_INCLUDE_DIR ${OPENAL_INCLUDE_DIR} "${DEPS_DIR}/openal/include")
+! 	set(LIBSNDFILE_INCLUDE_DIR ${LIBSNDFILE_INCLUDE_DIR} "${DEPS_DIR}/libsndfile/include")
+! 	set(LUAJIT_INCLUDE_DIR ${LUAJIT_INCLUDE_DIR} "${DEPS_DIR}/luajit/include")
+  	set(PYTHON_INCLUDE_DIR ${PYTHON_INCLUDE_DIR} "${DEPS_DIR}/python/include")
+! 	set(libserialport_INCLUDE_DIR ${LIBSERIALPORT_INCLUDE_DIR} "${DEPS_DIR}/libserialport/include")
+! 	set(OPENVR_INCLUDE_DIR "${DEPS_DIR}/openvr/include")
+  	
+! 	if(${CMAKE_EXE_LINKER_FLAGS} STREQUAL "/machine:x64")
+! 		set (ARCH "x64")
+! 	else()
+! 		set (ARCH "x86")
+! 	endif()
+  
+  	set (PREFIX "-${ARCH}")
+  
+! 	set(GLFW3_LIBRARIES ${GLFW3_LIBRARIES} "${DEPS_DIR}/glfw/lib/${ARCH}/glfw3dll.lib")
+! 	set(PNG_LIBRARIES ${PNG_LIBRARIES} "${DEPS_DIR}/libpng/lib/${ARCH}/libpng16.lib")
+! 	set(OPENAL_LIBRARY ${OPENAL_LIBRARY} "${DEPS_DIR}/openal/lib/${ARCH}/OpenAL32.lib")
+! 	set(LIBSNDFILE_LIBRARY ${LIBSNDFILE_LIBRARY} "${DEPS_DIR}/libsndfile/lib/${ARCH}/libsndfile-1.lib")
+! 	set(LUAJIT_LIBRARIES ${LUAJIT_LIBRARIES} "${DEPS_DIR}/luajit/lib/${ARCH}/lua51.lib")
+  	set(PYTHON_LIBRARY ${PYTHON_LIBRARY} "${DEPS_DIR}/python/lib/${ARCH}/python27.lib")
+! 	set(libserialport_LIBRARY ${LIBSERIALPORT_LIBRARY} "${DEPS_DIR}/libserialport/lib/${ARCH}/libserialport-0.lib")
+  	set(cppzmq_LIBRARY ${cppzmq_LIBRARY} "${DEPS_DIR}/cppzmq/lib/${ARCH}/libzmq.lib")
+  	set(OPENVR_LIBRARY "${DEPS_DIR}/openvr/lib/${ARCH}/openvr_api.lib")
+  endif()
+  
+  set(cppzmq_INCLUDE_DIR ${cppzmq_INCLUDE_DIR} "${DEPS_DIR}/cppzmq/include")
+! set(GLM_INCLUDE_DIR ${GLM_INCLUDE_DIR} "${DEPS_DIR}/glm/")
+  
+  if (${CMAKE_CXX_COMPILER_ID} STREQUAL MSVC)
+  	set(SOURCES ${SOURCES} "eu07.rc")
+--- 307,342 ----
+  	add_definitions(-DGLFW_DLL)
+  
+  	set(SOURCES ${SOURCES} "windows.cpp" "Console.cpp" "Console/LPT.cpp" "Console/PoKeys55.cpp")
+! 	set(GLFW3_INCLUDE_DIR ${GLFW3_INCLUDE_DIR} "$ENV{idir}/include/")
+! 	set(PNG_INCLUDE_DIRS ${PNG_INCLUDE_DIRS} "$ENV{idir}/usr/local/include/")
+! 	set(ZLIB_INCLUDE_DIR ${ZLIB_INCLUDE_DIR} "$ENV{idir}/usr/local/include/")
+! 	set(OPENAL_INCLUDE_DIR ${OPENAL_INCLUDE_DIR} "$ENV{depsdir}/openal/include")
+! 	set(LIBSNDFILE_INCLUDE_DIR ${LIBSNDFILE_INCLUDE_DIR} "$ENV{idir}/include")
+! 	set(LUAJIT_INCLUDE_DIR ${LUAJIT_INCLUDE_DIR} "$ENV{idir}/include/luajit-2.1/")
+  	set(PYTHON_INCLUDE_DIR ${PYTHON_INCLUDE_DIR} "${DEPS_DIR}/python/include")
+! 	set(libserialport_INCLUDE_DIR ${LIBSERIALPORT_INCLUDE_DIR} "$ENV{idir}/include")
+! 	set(OPENVR_INCLUDE_DIR "${CMAKE_SOURCE_DIR}/ref/openvr/include")
+  	
+! 	set (ARCH "x64")
+  
+  	set (PREFIX "-${ARCH}")
+  
+! 	set(GLFW3_LIBRARIES ${GLFW3_LIBRARIES} "$ENV{idir}/lib/libglfw3dll.a")
+! 	set(PNG_LIBRARIES ${PNG_LIBRARIES} "$ENV{idir}/usr/local/lib/libpng16.dll.a")
+! 	set(OPENAL_LIBRARY ${OPENAL_LIBRARY} "$ENV{depsdir}/openal/libs/Win64/OpenAL32.lib")
+! 	set(LIBSNDFILE_LIBRARY ${LIBSNDFILE_LIBRARY} "$ENV{idir}/lib/libsndfile.dll.a")
+! 	set(LUAJIT_LIBRARIES ${LUAJIT_LIBRARIES} "$ENV{idir}/lib/libluajit-5.1.dll.a")
+  	set(PYTHON_LIBRARY ${PYTHON_LIBRARY} "${DEPS_DIR}/python/lib/${ARCH}/python27.lib")
+! 	set(libserialport_LIBRARY ${LIBSERIALPORT_LIBRARY} "$ENV{idir}/lib/libserialport.dll.a")
+  	set(cppzmq_LIBRARY ${cppzmq_LIBRARY} "${DEPS_DIR}/cppzmq/lib/${ARCH}/libzmq.lib")
+  	set(OPENVR_LIBRARY "${DEPS_DIR}/openvr/lib/${ARCH}/openvr_api.lib")
++ 	set(GLM_LIBRARY "$ENV{idir}/lib/libglm.dll.a")
++ 	
++ 	set(ASIO_ROOT "$ENV{idir}")
+  endif()
+  
+  set(cppzmq_INCLUDE_DIR ${cppzmq_INCLUDE_DIR} "${DEPS_DIR}/cppzmq/include")
+! set(GLM_INCLUDE_DIR ${GLM_INCLUDE_DIR} "$ENV{idir}/lib/")
+  
+  if (${CMAKE_CXX_COMPILER_ID} STREQUAL MSVC)
+  	set(SOURCES ${SOURCES} "eu07.rc")
+***************
+*** 365,371 ****
+      LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
+      RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
+      PDB_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/pdb"
+! 	OUTPUT_NAME "${PROJECT_NAME}${PREFIX}_${SRC_SHORT_DATE}"
+  	DEBUG_POSTFIX "_d"
+  )
+  
+--- 364,370 ----
+      LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
+      RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
+      PDB_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/pdb"
+! 	OUTPUT_NAME "${PROJECT_NAME}"
+  	DEBUG_POSTFIX "_d"
+  )
+  
+***************
+*** 428,433 ****
+--- 427,433 ----
+  
+  find_package(GLM REQUIRED)
+  include_directories(${GLM_INCLUDE_DIR})
++ target_link_libraries(${PROJECT_NAME} ${GLM_LIBRARY})
+  
+  find_package(OpenAL REQUIRED)
+  if (TARGET OpenAL::OpenAL)
+***************
+*** 464,466 ****
+--- 464,468 ----
+  	include_directories(${cppzmq_INCLUDE_DIR})
+  	target_link_libraries(${PROJECT_NAME} ${cppzmq_LIBRARY})
+  endif()
++ 
++ target_link_libraries( ${PROJECT_NAME} -lws2_32 -lwsock32 -lsetupapi --static)
+\ No newline at end of file
+diff -crB a/maszyna/Texture.cpp b/maszyna/Texture.cpp
+*** a/maszyna/Texture.cpp	2024-12-16 01:58:05.646185300 +0100
+--- b/maszyna/Texture.cpp	2024-12-16 00:55:51.263683800 +0100
+***************
+*** 30,35 ****
+--- 30,39 ----
+  
+  #define EU07_DEFERRED_TEXTURE_UPLOAD
+  
++ #define FOURCC_DXT1 0x31545844
++ #define FOURCC_DXT3 0x33545844
++ #define FOURCC_DXT5 0x35545844
++ 
+  std::array<GLuint, gl::MAX_TEXTURES + gl::HELPER_TEXTURES> opengl_texture::units = { 0 };
+  GLint opengl_texture::m_activeunit = -1;
+  
+diff -crB a/maszyna/version_info.h.in b/maszyna/version_info.h.in
+*** a/maszyna/version_info.h.in	2024-12-16 01:58:06.028163600 +0100
+--- b/maszyna/version_info.h.in	2024-12-16 01:54:16.556459700 +0100
+***************
+*** 1,3 ****
+! #define VERSION_INFO "EU07 (cmake), @GIT_HASH@ (committed at @SRC_DATE@)"
+  #define GIT_HASH "@GIT_HASH@"
+  #define SRC_DATE "@SRC_DATE@"
+--- 1,3 ----
+! #define VERSION_INFO "EU07 (KNet Autobuild), @GIT_HASH@ (committed at @SRC_DATE@)"
+  #define GIT_HASH "@GIT_HASH@"
+  #define SRC_DATE "@SRC_DATE@"

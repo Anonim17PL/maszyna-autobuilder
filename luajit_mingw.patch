@@ -1,0 +1,65 @@
+*** b/luajit/Makefile	2024-12-16 00:43:28.332089100 +0100
+--- a/luajit/Makefile	2024-12-16 00:42:39.264554600 +0100
+***************
+*** 90,96 ****
+    SED_PC+= -e "s|^includedir=.*|includedir=$(INSTALL_INC)|"
+  endif
+  
+! FILE_T= luajit
+  FILE_A= libluajit.a
+  FILE_SO= libluajit.so
+  FILE_MAN= luajit.1
+--- 90,96 ----
+    SED_PC+= -e "s|^includedir=.*|includedir=$(INSTALL_INC)|"
+  endif
+  
+! FILE_T= luajit.exe
+  FILE_A= libluajit.a
+  FILE_SO= libluajit.so
+  FILE_MAN= luajit.1
+***************
+*** 145,150 ****
+--- 145,153 ----
+  	cd src && $(INSTALL_F) $(FILES_INC) $(INSTALL_INC)
+  	cd src/jit && $(INSTALL_F) $(FILES_JITLIB) $(INSTALL_JITLIB)
+  	$(SYMLINK) $(INSTALL_TNAME) $(INSTALL_TSYM)
++ 	cd src && $(INSTALL_X) $(FILE_T) $(INSTALL_T)
++ 	cd src && $(INSTALL_X) lua51.dll $(INSTALL_BIN)/lua51.dll
++ 	cd src && $(INSTALL_X) libluajit-5.1.dll.a $(INSTALL_BIN)/../lib/libluajit-5.1.dll.a
+  	@echo "==== Successfully installed LuaJIT $(VERSION) to $(PREFIX) ===="
+  
+  uninstall:
+diff -crB b/luajit/src/Makefile a/luajit/src/Makefile
+*** b/luajit/src/Makefile	2024-12-16 00:43:28.348046300 +0100
+--- a/luajit/src/Makefile	2024-12-16 00:41:42.999673700 +0100
+***************
+*** 575,589 ****
+    BUILDMODE= static
+  endif
+  
+! ifeq (Windows,$(HOST_SYS))
+    MINILUA_T= host/minilua.exe
+    BUILDVM_T= host/buildvm.exe
+!   ifeq (,$(HOST_MSYS))
+!     MINILUA_X= host\minilua
+!     BUILDVM_X= host\buildvm
+!     ALL_RM:= $(subst /,\,$(ALL_RM))
+!     HOST_RM= del
+!   endif
+  endif
+  
+  ifeq (static,$(BUILDMODE))
+--- 575,587 ----
+    BUILDMODE= static
+  endif
+  
+! ifeq (Windows,$(TARGET_SYS))
+    MINILUA_T= host/minilua.exe
+    BUILDVM_T= host/buildvm.exe
+!   MINILUA_X= host/minilua.exe
+!   BUILDVM_X= host/buildvm.exe
+!   LUAJIT_T= luajit.exe
+!   LUAJIT_X= luajit.exe
+  endif
+  
+  ifeq (static,$(BUILDMODE))
