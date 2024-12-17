@@ -27,7 +27,7 @@ exitdir() {
 #}
 
 install() {
-	cp -R include $idir/include
+	cp -R include/. $idir/include
 }
 
 download
