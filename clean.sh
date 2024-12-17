@@ -1,2 +1,2 @@
 #!/bin/bash
-rm -R output
+rm -Rf output
