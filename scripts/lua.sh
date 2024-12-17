@@ -21,7 +21,7 @@ configure() {
 }
 
 install() {
-	make install HOST_CC="$BUILD_PREFIX-gcc" CROSS=$BUILD_PREFIX- TARGET_SYS=Windows PREFIX=$idir -j8 
+	make install HOST_CC="gcc" CROSS=$BUILD_PREFIX- TARGET_SYS=Windows PREFIX=$idir -j8 
 }
 
 entrydir
