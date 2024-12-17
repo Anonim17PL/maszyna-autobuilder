@@ -10,31 +10,39 @@ mkdir -p output/buildenv
 mkdir -p download
 mkdir -p output/package/image
 
-#libasio
-. ./scripts/asio.sh
+build_deps() {
+  #libasio
+  . ./scripts/asio.sh
+  
+  #libpng
+  . ./scripts/zlib.sh
+  . ./scripts/libpng.sh
+  
+  #libserialport
+  . ./scripts/libserialport.sh
+  
+  #libglfw
+  . ./scripts/glfw.sh
+  
+  #libglm
+  . ./scripts/glm.sh
+  
+  #libsndfile
+  . ./scripts/libogg.sh
+  . ./scripts/libvorbis.sh
+  . ./scripts/libflac.sh
+  . ./scripts/libopus.sh
+  . ./scripts/libsndfile.sh
+  
+  #luajit
+  . ./scripts/lua.sh
+}
 
-#libpng
-. ./scripts/zlib.sh
-. ./scripts/libpng.sh
-
-#libserialport
-. ./scripts/libserialport.sh
-
-#libglfw
-. ./scripts/glfw.sh
-
-#libglm
-. ./scripts/glm.sh
-
-#libsndfile
-. ./scripts/libogg.sh
-. ./scripts/libvorbis.sh
-. ./scripts/libflac.sh
-. ./scripts/libopus.sh
-. ./scripts/libsndfile.sh
-
-#luajit
-. ./scripts/lua.sh
-
-#Maszyna
+case "$1" in
+  "target") . ./scripts/target.sh ;;
+  "deps") build_deps ;;
+  "script") . ./scripts/$2.sh ;;
+  *)
+  
+build_deps
 . ./scripts/target.sh
