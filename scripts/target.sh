@@ -21,7 +21,7 @@ configure() {
 	cp $depsdir/SDKDDKVer.h ./SDKDDKVer.h
 	mkdir build
 	cd build
-	cmake .. -DCMAKE_TOOLCHAIN_FILE=$sdir/mingw64.cmake -DCMAKE_BUILD_TYPE=Release
+	cmake .. -DCMAKE_TOOLCHAIN_FILE=$sdir/mingw64.cmake -DCMAKE_BUILD_TYPE=Release -DWIN32=true
 }
 
 install() {
