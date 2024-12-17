@@ -1,6 +1,6 @@
 #!/bin/bash
 
-url="git://sigrok.org/libserialport"
+url="https://github.com/sigrokproject/libserialport.git"
 #loc="download/"
 dirloc="output/build"
 adir="libserialport"
