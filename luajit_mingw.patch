@@ -56,8 +56,8 @@ diff -crB b/luajit/src/Makefile a/luajit/src/Makefile
 ! ifeq (Windows,$(TARGET_SYS))
     MINILUA_T= host/minilua.exe
     BUILDVM_T= host/buildvm.exe
-!   MINILUA_X= host/minilua.exe
-!   BUILDVM_X= host/buildvm.exe
+!   MINILUA_X= host/minilua
+!   BUILDVM_X= host/buildvm
 !   LUAJIT_T= luajit.exe
 !   LUAJIT_X= luajit.exe
   endif
