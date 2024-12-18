@@ -46,4 +46,5 @@ case "$1" in
   
 build_deps
 . ./scripts/target.sh
+. ./scripts/package.sh
 esac
