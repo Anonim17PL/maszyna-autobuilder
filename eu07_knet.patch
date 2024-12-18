@@ -1,6 +1,6 @@
 diff -crB a/maszyna/CMakeLists.txt b/maszyna/CMakeLists.txt
-*** a/maszyna/CMakeLists.txt	2024-12-18 14:11:24.517719400 +0100
---- b/maszyna/CMakeLists.txt	2024-12-18 14:15:26.983718700 +0100
+*** a/maszyna/CMakeLists.txt	2024-12-18 16:44:49.344957500 +0100
+--- b/maszyna/CMakeLists.txt	2024-12-18 16:46:56.801147500 +0100
 ***************
 *** 294,300 ****
   	string(TIMESTAMP SRC_DATE UTC)
@@ -29,7 +29,7 @@ diff -crB a/maszyna/CMakeLists.txt b/maszyna/CMakeLists.txt
 ! 	set(OPENAL_INCLUDE_DIR ${OPENAL_INCLUDE_DIR} "${DEPS_DIR}/openal/include")
 ! 	set(LIBSNDFILE_INCLUDE_DIR ${LIBSNDFILE_INCLUDE_DIR} "${DEPS_DIR}/libsndfile/include")
 ! 	set(LUAJIT_INCLUDE_DIR ${LUAJIT_INCLUDE_DIR} "${DEPS_DIR}/luajit/include")
-  	set(PYTHON_INCLUDE_DIR ${PYTHON_INCLUDE_DIR} "${DEPS_DIR}/python/include")
+! 	set(PYTHON_INCLUDE_DIR ${PYTHON_INCLUDE_DIR} "${DEPS_DIR}/python/include")
 ! 	set(libserialport_INCLUDE_DIR ${LIBSERIALPORT_INCLUDE_DIR} "${DEPS_DIR}/libserialport/include")
 ! 	set(OPENVR_INCLUDE_DIR "${DEPS_DIR}/openvr/include")
   	
@@ -46,7 +46,7 @@ diff -crB a/maszyna/CMakeLists.txt b/maszyna/CMakeLists.txt
 ! 	set(OPENAL_LIBRARY ${OPENAL_LIBRARY} "${DEPS_DIR}/openal/lib/${ARCH}/OpenAL32.lib")
 ! 	set(LIBSNDFILE_LIBRARY ${LIBSNDFILE_LIBRARY} "${DEPS_DIR}/libsndfile/lib/${ARCH}/libsndfile-1.lib")
 ! 	set(LUAJIT_LIBRARIES ${LUAJIT_LIBRARIES} "${DEPS_DIR}/luajit/lib/${ARCH}/lua51.lib")
-  	set(PYTHON_LIBRARY ${PYTHON_LIBRARY} "${DEPS_DIR}/python/lib/${ARCH}/python27.lib")
+! 	set(PYTHON_LIBRARY ${PYTHON_LIBRARY} "${DEPS_DIR}/python/lib/${ARCH}/python27.lib")
 ! 	set(libserialport_LIBRARY ${LIBSERIALPORT_LIBRARY} "${DEPS_DIR}/libserialport/lib/${ARCH}/libserialport-0.lib")
   	set(cppzmq_LIBRARY ${cppzmq_LIBRARY} "${DEPS_DIR}/cppzmq/lib/${ARCH}/libzmq.lib")
   	set(OPENVR_LIBRARY "${DEPS_DIR}/openvr/lib/${ARCH}/openvr_api.lib")
@@ -67,7 +67,7 @@ diff -crB a/maszyna/CMakeLists.txt b/maszyna/CMakeLists.txt
 ! 	set(OPENAL_INCLUDE_DIR ${OPENAL_INCLUDE_DIR} "$ENV{depsdir}/openal/include")
 ! 	set(LIBSNDFILE_INCLUDE_DIR ${LIBSNDFILE_INCLUDE_DIR} "$ENV{idir}/include")
 ! 	set(LUAJIT_INCLUDE_DIR ${LUAJIT_INCLUDE_DIR} "$ENV{idir}/include/luajit-2.1/")
-  	set(PYTHON_INCLUDE_DIR ${PYTHON_INCLUDE_DIR} "$ENV{depsdir}/Python27/include")
+! 	set(PYTHON_INCLUDE_DIR ${PYTHON_INCLUDE_DIR} "$ENV{depsdir}/Python27/include")
 ! 	set(libserialport_INCLUDE_DIR ${LIBSERIALPORT_INCLUDE_DIR} "$ENV{idir}/include")
 ! 	set(OPENVR_INCLUDE_DIR "${CMAKE_SOURCE_DIR}/ref/openvr/include")
   	
@@ -80,7 +80,7 @@ diff -crB a/maszyna/CMakeLists.txt b/maszyna/CMakeLists.txt
 ! 	set(OPENAL_LIBRARY ${OPENAL_LIBRARY} "$ENV{depsdir}/openal/libs/Win64/OpenAL32.lib")
 ! 	set(LIBSNDFILE_LIBRARY ${LIBSNDFILE_LIBRARY} "$ENV{idir}/lib/libsndfile.dll.a")
 ! 	set(LUAJIT_LIBRARIES ${LUAJIT_LIBRARIES} "$ENV{idir}/lib/libluajit-5.1.dll.a")
-  	set(PYTHON_LIBRARY ${PYTHON_LIBRARY} "$ENV{depsdir}/Python27/libs/libpython27.a")
+! 	set(PYTHON_LIBRARY ${PYTHON_LIBRARY} "$ENV{depsdir}/Python27/libs/libpython27.a")
 ! 	set(libserialport_LIBRARY ${LIBSERIALPORT_LIBRARY} "$ENV{idir}/lib/libserialport.dll.a")
   	set(cppzmq_LIBRARY ${cppzmq_LIBRARY} "${DEPS_DIR}/cppzmq/lib/${ARCH}/libzmq.lib")
   	set(OPENVR_LIBRARY "${DEPS_DIR}/openvr/lib/${ARCH}/openvr_api.lib")
@@ -129,10 +129,38 @@ diff -crB a/maszyna/CMakeLists.txt b/maszyna/CMakeLists.txt
   endif()
 + 
 + target_link_libraries( ${PROJECT_NAME} -lws2_32 -lwsock32 -lsetupapi --static)
-\ No newline at end of file
+Binary files a/maszyna/.git/index and b/maszyna/.git/index differ
+diff -crB a/maszyna/.git/logs/HEAD b/maszyna/.git/logs/HEAD
+*** a/maszyna/.git/logs/HEAD	2024-12-18 16:44:49.333890100 +0100
+--- b/maszyna/.git/logs/HEAD	2024-12-18 16:44:58.309087200 +0100
+***************
+*** 1 ****
+! 0000000000000000000000000000000000000000 d187ce6b12fab1825c0c92c1346e7ecda401a440 user <user@DESKTOP-7E2SOKA.localdomain> 1734536689 +0100	clone: from https://github.com/eu07/maszyna.git
+--- 1 ----
+! 0000000000000000000000000000000000000000 d187ce6b12fab1825c0c92c1346e7ecda401a440 user <user@DESKTOP-7E2SOKA.localdomain> 1734536698 +0100	clone: from https://github.com/eu07/maszyna.git
+diff -crB a/maszyna/.git/logs/refs/heads/master b/maszyna/.git/logs/refs/heads/master
+*** a/maszyna/.git/logs/refs/heads/master	2024-12-18 16:44:49.334935200 +0100
+--- b/maszyna/.git/logs/refs/heads/master	2024-12-18 16:44:58.310084400 +0100
+***************
+*** 1 ****
+! 0000000000000000000000000000000000000000 d187ce6b12fab1825c0c92c1346e7ecda401a440 user <user@DESKTOP-7E2SOKA.localdomain> 1734536689 +0100	clone: from https://github.com/eu07/maszyna.git
+--- 1 ----
+! 0000000000000000000000000000000000000000 d187ce6b12fab1825c0c92c1346e7ecda401a440 user <user@DESKTOP-7E2SOKA.localdomain> 1734536698 +0100	clone: from https://github.com/eu07/maszyna.git
+diff -crB a/maszyna/.git/logs/refs/remotes/origin/HEAD b/maszyna/.git/logs/refs/remotes/origin/HEAD
+*** a/maszyna/.git/logs/refs/remotes/origin/HEAD	2024-12-18 16:44:49.330898100 +0100
+--- b/maszyna/.git/logs/refs/remotes/origin/HEAD	2024-12-18 16:44:58.306095200 +0100
+***************
+*** 1 ****
+! 0000000000000000000000000000000000000000 d187ce6b12fab1825c0c92c1346e7ecda401a440 user <user@DESKTOP-7E2SOKA.localdomain> 1734536689 +0100	clone: from https://github.com/eu07/maszyna.git
+--- 1 ----
+! 0000000000000000000000000000000000000000 d187ce6b12fab1825c0c92c1346e7ecda401a440 user <user@DESKTOP-7E2SOKA.localdomain> 1734536698 +0100	clone: from https://github.com/eu07/maszyna.git
+Only in a/maszyna/.git/objects/pack: pack-946cc35ee41e0fc20c3fcd126ded571d6dc24ccb.idx
+Only in a/maszyna/.git/objects/pack: pack-946cc35ee41e0fc20c3fcd126ded571d6dc24ccb.pack
+Only in b/maszyna/.git/objects/pack: pack-ae83a48858f51b15eb29e7e9d83805de3fcbfe86.idx
+Only in b/maszyna/.git/objects/pack: pack-ae83a48858f51b15eb29e7e9d83805de3fcbfe86.pack
 diff -crB a/maszyna/Texture.cpp b/maszyna/Texture.cpp
-*** a/maszyna/Texture.cpp	2024-12-18 14:11:24.582834600 +0100
---- b/maszyna/Texture.cpp	2024-12-18 14:14:27.533224000 +0100
+*** a/maszyna/Texture.cpp	2024-12-18 16:44:49.377027500 +0100
+--- b/maszyna/Texture.cpp	2024-12-18 16:45:17.846886100 +0100
 ***************
 *** 30,35 ****
 --- 30,39 ----
@@ -147,8 +175,8 @@ diff -crB a/maszyna/Texture.cpp b/maszyna/Texture.cpp
   GLint opengl_texture::m_activeunit = -1;
   
 diff -crB a/maszyna/version_info.h.in b/maszyna/version_info.h.in
-*** a/maszyna/version_info.h.in	2024-12-18 14:11:25.133025500 +0100
---- b/maszyna/version_info.h.in	2024-12-18 14:14:27.534221600 +0100
+*** a/maszyna/version_info.h.in	2024-12-18 16:44:49.798995800 +0100
+--- b/maszyna/version_info.h.in	2024-12-18 16:45:17.847883500 +0100
 ***************
 *** 1,3 ****
 ! #define VERSION_INFO "EU07 (cmake), @GIT_HASH@ (committed at @SRC_DATE@)"
