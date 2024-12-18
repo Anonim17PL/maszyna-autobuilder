@@ -1,6 +1,6 @@
 #!/bin/bash
 
-dirloc="output/package"
+dirloc="output/package/image"
 idate=$(date '+%Y-%m-%d')
 
 entrydir() {
@@ -12,7 +12,7 @@ exitdir() {
 }
 
 image() {
-	zip eu07_x64-$idate.zip image/*
+	zip ../eu07_x64-$idate.zip *
 }
 
 entrydir
