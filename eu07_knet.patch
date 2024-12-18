@@ -68,7 +68,7 @@ diff -crB a/maszyna/CMakeLists.txt b/maszyna/CMakeLists.txt
   	set(cppzmq_LIBRARY ${cppzmq_LIBRARY} "${DEPS_DIR}/cppzmq/lib/${ARCH}/libzmq.lib")
   	set(OPENVR_LIBRARY "${DEPS_DIR}/openvr/lib/${ARCH}/openvr_api.lib")
 + 	set(GLM_LIBRARY "$ENV{idir}/lib/libglm.dll.a")
-+ 	
++ 	string(TIMESTAMP TODAY UTC)
 + 	set(ASIO_ROOT "$ENV{idir}")
   endif()
   
@@ -138,6 +138,6 @@ diff -crB a/maszyna/version_info.h.in b/maszyna/version_info.h.in
   #define GIT_HASH "@GIT_HASH@"
   #define SRC_DATE "@SRC_DATE@"
 --- 1,3 ----
-! #define VERSION_INFO "EU07 (KNet Autobuild), @GIT_HASH@ (committed at @SRC_DATE@)"
+! #define VERSION_INFO "EU07 (KNet Autobuild at @TODAY@), @GIT_HASH@ (committed at @SRC_DATE@)"
   #define GIT_HASH "@GIT_HASH@"
   #define SRC_DATE "@SRC_DATE@"
