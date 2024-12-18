@@ -80,7 +80,7 @@ diff -crB a/maszyna/CMakeLists.txt b/maszyna/CMakeLists.txt
 ! 	set(OPENAL_LIBRARY ${OPENAL_LIBRARY} "$ENV{depsdir}/openal/libs/Win64/OpenAL32.lib")
 ! 	set(LIBSNDFILE_LIBRARY ${LIBSNDFILE_LIBRARY} "$ENV{idir}/lib/libsndfile.dll.a")
 ! 	set(LUAJIT_LIBRARIES ${LUAJIT_LIBRARIES} "$ENV{idir}/lib/libluajit-5.1.dll.a")
-! 	set(PYTHON_LIBRARY ${PYTHON_LIBRARY} "$ENV{depsdir}/Python27/libs/libpython27.a")
+! 	set(PYTHON_LIBRARY ${PYTHON_LIBRARY} "$ENV{depsdir}/Python27/libs/python27.lib")
 ! 	set(libserialport_LIBRARY ${LIBSERIALPORT_LIBRARY} "$ENV{idir}/lib/libserialport.dll.a")
   	set(cppzmq_LIBRARY ${cppzmq_LIBRARY} "${DEPS_DIR}/cppzmq/lib/${ARCH}/libzmq.lib")
   	set(OPENVR_LIBRARY "${DEPS_DIR}/openvr/lib/${ARCH}/openvr_api.lib")
