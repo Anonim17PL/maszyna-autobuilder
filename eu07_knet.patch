@@ -70,6 +70,7 @@ diff -crB a/maszyna/CMakeLists.txt b/maszyna/CMakeLists.txt
 + 	set(GLM_LIBRARY "$ENV{idir}/lib/libglm.dll.a")
 + 	
 + 	set(ASIO_ROOT "$ENV{idir}")
++   string(TIMESTAMP TODAY "%Y-%m-%d")
   endif()
   
   set(cppzmq_INCLUDE_DIR ${cppzmq_INCLUDE_DIR} "${DEPS_DIR}/cppzmq/include")
@@ -138,6 +139,6 @@ diff -crB a/maszyna/version_info.h.in b/maszyna/version_info.h.in
   #define GIT_HASH "@GIT_HASH@"
   #define SRC_DATE "@SRC_DATE@"
 --- 1,3 ----
-! #define VERSION_INFO "EU07 (KNet Autobuild), @GIT_HASH@ (committed at @SRC_DATE@)"
+! #define VERSION_INFO "EU07 (KNet Autobuild at @TODAY@), @GIT_HASH@ (committed at @SRC_DATE@)"
   #define GIT_HASH "@GIT_HASH@"
   #define SRC_DATE "@SRC_DATE@"
