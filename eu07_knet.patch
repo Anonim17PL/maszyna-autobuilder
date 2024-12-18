@@ -1,6 +1,23 @@
 diff -crB a/maszyna/CMakeLists.txt b/maszyna/CMakeLists.txt
-*** a/maszyna/CMakeLists.txt	2024-12-16 01:58:05.616265100 +0100
---- b/maszyna/CMakeLists.txt	2024-12-16 01:55:56.059622400 +0100
+*** a/maszyna/CMakeLists.txt	2024-12-18 14:11:24.517719400 +0100
+--- b/maszyna/CMakeLists.txt	2024-12-18 14:15:26.983718700 +0100
+***************
+*** 294,300 ****
+  	string(TIMESTAMP SRC_DATE UTC)
+  	set(GIT_HASH "(unknown)")
+  endif()
+! 
+  configure_file("${CMAKE_SOURCE_DIR}/version_info.h.in" "${CMAKE_BINARY_DIR}/geninc/version_info.h")
+  
+  set (PREFIX "")
+--- 294,300 ----
+  	string(TIMESTAMP SRC_DATE UTC)
+  	set(GIT_HASH "(unknown)")
+  endif()
+! string(TIMESTAMP TODAY "%Y-%m-%d")
+  configure_file("${CMAKE_SOURCE_DIR}/version_info.h.in" "${CMAKE_BINARY_DIR}/geninc/version_info.h")
+  
+  set (PREFIX "")
 ***************
 *** 307,343 ****
   	add_definitions(-DGLFW_DLL)
@@ -68,7 +85,7 @@ diff -crB a/maszyna/CMakeLists.txt b/maszyna/CMakeLists.txt
   	set(cppzmq_LIBRARY ${cppzmq_LIBRARY} "${DEPS_DIR}/cppzmq/lib/${ARCH}/libzmq.lib")
   	set(OPENVR_LIBRARY "${DEPS_DIR}/openvr/lib/${ARCH}/openvr_api.lib")
 + 	set(GLM_LIBRARY "$ENV{idir}/lib/libglm.dll.a")
-+ 	string(TIMESTAMP TODAY UTC)
++ 	
 + 	set(ASIO_ROOT "$ENV{idir}")
   endif()
   
@@ -114,8 +131,8 @@ diff -crB a/maszyna/CMakeLists.txt b/maszyna/CMakeLists.txt
 + target_link_libraries( ${PROJECT_NAME} -lws2_32 -lwsock32 -lsetupapi --static)
 \ No newline at end of file
 diff -crB a/maszyna/Texture.cpp b/maszyna/Texture.cpp
-*** a/maszyna/Texture.cpp	2024-12-16 01:58:05.646185300 +0100
---- b/maszyna/Texture.cpp	2024-12-16 00:55:51.263683800 +0100
+*** a/maszyna/Texture.cpp	2024-12-18 14:11:24.582834600 +0100
+--- b/maszyna/Texture.cpp	2024-12-18 14:14:27.533224000 +0100
 ***************
 *** 30,35 ****
 --- 30,39 ----
@@ -130,8 +147,8 @@ diff -crB a/maszyna/Texture.cpp b/maszyna/Texture.cpp
   GLint opengl_texture::m_activeunit = -1;
   
 diff -crB a/maszyna/version_info.h.in b/maszyna/version_info.h.in
-*** a/maszyna/version_info.h.in	2024-12-16 01:58:06.028163600 +0100
---- b/maszyna/version_info.h.in	2024-12-16 01:54:16.556459700 +0100
+*** a/maszyna/version_info.h.in	2024-12-18 14:11:25.133025500 +0100
+--- b/maszyna/version_info.h.in	2024-12-18 14:14:27.534221600 +0100
 ***************
 *** 1,3 ****
 ! #define VERSION_INFO "EU07 (cmake), @GIT_HASH@ (committed at @SRC_DATE@)"
