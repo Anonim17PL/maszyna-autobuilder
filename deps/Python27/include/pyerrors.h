@@ -194,7 +194,7 @@ PyAPI_FUNC(PyObject *) PyErr_SetFromErrnoWithUnicodeFilename(
 #endif /* MS_WINDOWS */
 
 PyAPI_FUNC(PyObject *) PyErr_Format(PyObject *, const char *, ...)
-                        Py_GCC_ATTRIBUTE((format(printf, 2, 3)));
+                        _Py_PRINTF(2, 3);
 
 #ifdef MS_WINDOWS
 PyAPI_FUNC(PyObject *) PyErr_SetFromWindowsErrWithFilenameObject(
@@ -319,9 +319,9 @@ PyAPI_FUNC(int) PyUnicodeTranslateError_SetReason(
 
 #include <stdarg.h>
 PyAPI_FUNC(int) PyOS_snprintf(char *str, size_t size, const char  *format, ...)
-                        Py_GCC_ATTRIBUTE((format(printf, 3, 4)));
+                        _Py_PRINTF(3, 4);
 PyAPI_FUNC(int) PyOS_vsnprintf(char *str, size_t size, const char  *format, va_list va)
-                        Py_GCC_ATTRIBUTE((format(printf, 3, 0)));
+                        _Py_PRINTF(3, 0);
 
 #ifdef __cplusplus
 }

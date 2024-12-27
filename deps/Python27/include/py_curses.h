@@ -43,7 +43,9 @@
 /* The following definition is necessary for ncurses 5.7; without it,
    some of [n]curses.h set NCURSES_OPAQUE to 1, and then Python
    can't get at the WINDOW flags field. */
+/* NOTE configure check if ncurses require such definition
 #define NCURSES_OPAQUE 0
+*/
 #endif
 
 #ifdef HAVE_NCURSES_H
@@ -52,12 +54,19 @@
 #include <curses.h>
 #endif
 
+#if defined(__MINGW32__) && !defined(_ISPAD)
+#define _ISPAD 0x10
+#endif
+
 #ifdef HAVE_NCURSES_H
 /* configure was checking <curses.h>, but we will
    use <ncurses.h>, which has some or all these features. */
+/* NOTE configure check for existence of flags
+ * Also flags are visible only if WINDOW structure is not opaque
 #if !defined(WINDOW_HAS_FLAGS) && !(NCURSES_OPAQUE+0)
 #define WINDOW_HAS_FLAGS 1
 #endif
+*/
 #if !defined(HAVE_CURSES_IS_PAD) && NCURSES_VERSION_PATCH+0 >= 20090906
 #define HAVE_CURSES_IS_PAD 1
 #endif

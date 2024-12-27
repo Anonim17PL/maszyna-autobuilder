@@ -104,6 +104,7 @@ PyAPI_FUNC(char *) Py_GetProgramFullPath(void);
 PyAPI_FUNC(char *) Py_GetPrefix(void);
 PyAPI_FUNC(char *) Py_GetExecPrefix(void);
 PyAPI_FUNC(char *) Py_GetPath(void);
+PyAPI_FUNC(void) Py_NormalizeSepsA(char *name);
 
 /* In their own files */
 PyAPI_FUNC(const char *) Py_GetVersion(void);

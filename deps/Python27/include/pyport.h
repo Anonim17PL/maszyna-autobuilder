@@ -13,6 +13,21 @@
 #include <stdint.h>
 #endif
 
+#ifdef __MINGW32__
+/* Translate GCC[mingw*] platform specific defines to those
+ * used in python code.
+ */
+#if !defined(MS_WIN64) && defined(_WIN64)
+#  define MS_WIN64
+#endif
+#if !defined(MS_WIN32) && defined(_WIN32)
+#  define MS_WIN32
+#endif
+#if !defined(MS_WINDOWS) && defined(MS_WIN32)
+#  define MS_WINDOWS
+#endif
+#endif /*def __MINGW32__*/
+
 /**************************************************************************
 Symbols and macros to supply platform-independent interfaces to basic
 C language & library operations whose spellings vary across platforms.
@@ -203,9 +218,11 @@ typedef Py_intptr_t     Py_ssize_t;
 /* Smallest negative value of type Py_ssize_t. */
 #define PY_SSIZE_T_MIN (-PY_SSIZE_T_MAX-1)
 
+/*
 #if SIZEOF_PID_T > SIZEOF_LONG
 #   error "Python doesn't support sizeof(pid_t) > sizeof(long)"
 #endif
+*/
 
 /* PY_FORMAT_SIZE_T is a platform-specific modifier for use in a printf
  * format to convert an argument with the width of a size_t or Py_ssize_t.
@@ -237,6 +254,8 @@ typedef Py_intptr_t     Py_ssize_t;
 #       define PY_FORMAT_SIZE_T "l"
 #   elif defined(MS_WINDOWS)
 #       define PY_FORMAT_SIZE_T "I"
+#   elif defined(__MINGW32__) && defined(__USE_MINGW_ANSI_STDIO)
+#       define PY_FORMAT_SIZE_T "z"
 #   else
 #       error "This platform's pyconfig.h needs to define PY_FORMAT_SIZE_T"
 #   endif
@@ -656,6 +675,12 @@ int shutdown( int, int );
 extern char * _getpty(int *, int, mode_t, int);
 #endif
 
+#if defined(__GNUC__) && ((__GNUC__ == 4 && __GNUC_MINOR__>= 4) || __GNUC__ > 4)
+#  define _Py_PRINTF(X,Y) Py_GCC_ATTRIBUTE((format(gnu_printf,X,Y)))
+#else
+#  define _Py_PRINTF(X,Y) Py_GCC_ATTRIBUTE((format(printf,X,Y))) 
+#endif
+
 /* On QNX 6, struct termio must be declared by including sys/termio.h
    if TCGETA, TCSETA, TCSETAW, or TCSETAF are used.  sys/termio.h must
    be included before termios.h or it will generate an error. */
@@ -755,37 +780,39 @@ extern int fdatasync(int);
 */
 
 /*
-  All windows ports, except cygwin, are handled in PC/pyconfig.h.
+  Only MSVC windows ports is handled in PC/pyconfig.h.
 
-  BeOS and cygwin are the only other autoconf platform requiring special
+  Cygwin and Mingw are autoconf platforms requiring special
   linkage handling and both of these use __declspec().
 */
-#if defined(__CYGWIN__) || defined(__BEOS__)
+#if defined(__CYGWIN__) || defined(__BEOS__) || defined(__MINGW32__)
 #       define HAVE_DECLSPEC_DLL
 #endif
 
 /* only get special linkage if built as shared or platform is Cygwin */
 #if defined(Py_ENABLE_SHARED) || defined(__CYGWIN__)
 #       if defined(HAVE_DECLSPEC_DLL)
-#               ifdef Py_BUILD_CORE
+#               if defined(Py_BUILD_CORE) || defined(Py_BUILD_CORE_MODULE)
 #                       define PyAPI_FUNC(RTYPE) __declspec(dllexport) RTYPE
 #                       define PyAPI_DATA(RTYPE) extern __declspec(dllexport) RTYPE
         /* module init functions inside the core need no external linkage */
-        /* except for Cygwin to handle embedding (FIXME: BeOS too?) */
-#                       if defined(__CYGWIN__)
+        /* except for Cygwin/Mingw to handle embedding (FIXME: BeOS too?) */
+#                       if defined(__CYGWIN__) || defined(__MINGW32__)
 #                               define PyMODINIT_FUNC __declspec(dllexport) void
-#                       else /* __CYGWIN__ */
+#                       else
 #                               define PyMODINIT_FUNC void
-#                       endif /* __CYGWIN__ */
-#               else /* Py_BUILD_CORE */
+#                       endif
+#               else /* Py_BUILD_CORE... */
         /* Building an extension module, or an embedded situation */
         /* public Python functions and data are imported */
-        /* Under Cygwin, auto-import functions to prevent compilation */
+        /* Under Cygwin/Mingw, auto-import functions to prevent compilation */
         /* failures similar to those described at the bottom of 4.1: */
         /* http://docs.python.org/extending/windows.html#a-cookbook-approach */
-#                       if !defined(__CYGWIN__)
+#                       if defined(__CYGWIN__) || defined(__MINGW32__)
+#                               define PyAPI_FUNC(RTYPE) RTYPE
+#                       else
 #                               define PyAPI_FUNC(RTYPE) __declspec(dllimport) RTYPE
-#                       endif /* !__CYGWIN__ */
+#                       endif
 #                       define PyAPI_DATA(RTYPE) extern __declspec(dllimport) RTYPE
         /* module init functions outside the core must be exported */
 #                       if defined(__cplusplus)
@@ -793,7 +820,7 @@ extern int fdatasync(int);
 #                       else /* __cplusplus */
 #                               define PyMODINIT_FUNC __declspec(dllexport) void
 #                       endif /* __cplusplus */
-#               endif /* Py_BUILD_CORE */
+#               endif /* Py_BUILD_CORE... */
 #       endif /* HAVE_DECLSPEC */
 #endif /* Py_ENABLE_SHARED */
 
